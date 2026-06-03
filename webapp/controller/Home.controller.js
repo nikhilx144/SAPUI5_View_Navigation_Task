@@ -1,10 +1,184 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], (Controller) => {
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/model/resource/ResourceModel",
+    "sap/m/MessageToast",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/ui/core/Messaging",
+    "sap/ui/model/Sorter",
+], (Controller, ResourceModel, MessageToast, JSONModel, Filter, FilterOperator, Messaging, Sorter) => {
     "use strict";
 
     return Controller.extend("view.navigation.tasks.ui5.ui5viewnavigationtask.controller.Home", {
         onInit() {
+            this.oView = this.getView();
+            // resource model aleardy defined as a global model in manifest.json
+            // const resourceModel = new ResourceModel({
+            //     bundleName: "tasks.ui5.ui5task2.i18n.i18n"
+            // });
+
+            // this.oView.setModel(resourceModel, "i18n");
+
+            // For the sort panel pop up
+            this._isOpen = false;
+
+            var modelData = {
+                // sortData: [],
+                Table: [],
+                // mandatoryName: "",
+                // mandatoryEmail: "",
+                // displayAddressString: "",
+                enabled: true,
+                // addresses: [{ addressText: "" }],
+                // roles: [ { role: "Associate Consultant" }, { role: "Manager" }, { role: "Consultant" } ],
+                selectedObject: {}
+            }
+
+            // initial data for the sort, filter, group and column visibility features of the table
+            this._initialData = {
+                columns: [
+                    { visible: true, name: "passOrFail", label: "Status" },
+                    { visible: true, name: "tableLength", label: "ID" },
+                    { visible: true, name: "fullName1", label: "Name" },
+                    { visible: true, name: "phno1", label: "Phone" },
+                    { visible: true, name: "email1", label: "Email" },
+                    // { visible: true, name: "addressString1", label: "Address" }
+                ],
+                sort: [
+                    { sorted: true, name: "tableLength", label: "ID", descending: true },
+                    { sorted: false, name: "fullName1", label: "Name", descending: false },
+                    { sorted: false, name: "phno1", label: "Phone", descending: false },
+                    { sorted: false, name: "email1", label: "Email", descending: false },
+                    // { sorted: false, name: "addressString1", label: "Address", descending: false }
+                ],
+                group: [
+                    { grouped: false, name: "passOrFail", label: "Status" },
+                ],
+                filter: [
+                    { name: "fullName1", label: "Name" },
+                    { name: "phno1", label: "Phone" },
+                    { name: "email1", label: "Email" },
+                    { name: "passOrFail", label: "Status" }
+                ]
+            };
+
+            this._router = sap.ui.core.UIComponent.getRouterFor(this);
+            this._router.getRoute("RouteHome").attachPatternMatched(this.onHomeRouteMatched, this);
+
+            Messaging.registerObject(view, true);
+        },
+
+        onHomeRouteMatched(event) {
+            // const updatedObjectDataInString = window.decodeURIComponent(event.getParameter("arguments").updatedObjectData);
+            // const updatedObjectDataInObject = JSON.parse(updatedObjectDataInString);
+            // console.log('Updated Object Data = ' + updatedObjectDataInObject);
+            // let tableData = this.oView.getModel("userDetails").getProperty("/Table");
+            // tableData.forEach(row => {
+            //     if (row.tableLength === updatedObjectDataInObject.tableLength) {
+            //         row.fullName1 = updatedObjectDataInObject.fullName1;
+            //         row.phno1 = updatedObjectDataInObject.phno1;
+            //         row.email1 = updatedObjectDataInObject.email1;
+            //         row.dob1 = updatedObjectDataInObject.dob1;
+            //         row.passOrFail = updatedObjectDataInObject.passOrFail;
+            //     }
+            // });
+            // this.oView.getModel("userDetails").setProperty("/Table", tableData);
+        },
+
+        // press event handler for the sort, filter, group and column visibility button which opens the pop up panel
+        // and also sets the initial data for these features in the pop up
+        onOpenSortPanel(event) {
+            const popUp = this.oView.byId("p13nPopup");
+            if (!this._isOpen) {
+                this._setInitialData();
+                this._isOpen = true;
+
+                popUp.attachClose((oEvent) => {
+                    if (oEvent.getParameter("reason") === "Ok") {
+                        this.parseP13nState();
+                    }
+                });
+            }
+            popUp.open(event.getSource());
+        },
+
+        // function to set the initial data for the sort, filter, group and column visibility features in the pop up
+        // used in onOpenSortPanel function
+        _setInitialData() {
+            const view = this.getView();
+
+            const selectionPanel = view.byId("columnsPanel");
+            const sortPanel = view.byId("sortPanel");
+            const groupPanel = view.byId("groupPanel");
+
+            selectionPanel.setP13nData(this._initialData.columns);
+            sortPanel.setP13nData(this._initialData.sort);
+            groupPanel.setP13nData(this._initialData.group);
+        },
+
+        // function to reset the current selections of the sort, filter, group and column visibility features to the initial state
+        reset() {
+            this._setInitialData();
+            this.parseP13nState();
+        },
+
+        // function to get the p13n data and map it to the columns of the table
+        parseP13nState() {
+            const table = this.getView().byId("innerTable");
+            const binding = table.getBinding("items");
+            const view = this.getView();
+
+            const aColumnState = view.byId("columnsPanel").getP13nData();
+            const aSortState = view.byId("sortPanel").getP13nData();
+            const aGroupState = view.byId("groupPanel").getP13nData();
+
+            const columnMap = {
+                "fullName1": "nameColumn",
+                "phno1": "phoneColumn",
+                "email1": "emailColumn",
+                "passOrFail": "statusColumn",
+                "tableLength": "idColumn",
+                // "addressString1": "addressColumn"
+            }
+
+            aColumnState.forEach((columnState) => {
+                const colId = columnMap[columnState.name];
+                const col = view.byId(colId);
+                if (col) {
+                    col.setVisible(columnState.visible);
+                }
+            });
+
+            if (!binding) return;
+
+            const tableSorters = [];
+            
+            aGroupState.forEach((groupState) => {
+                if (groupState.grouped) {
+                    tableSorters.push(new Sorter(groupState.name, false, true));
+                }
+            });
+
+            aSortState.forEach((sortState) => {
+                if (sortState.sorted) {
+                    tableSorters.push(new Sorter(sortState.name, sortState.descending));
+                }
+            });
+
+            binding.sort(tableSorters);
+        },
+
+        onRowPress(event) {
+            const router = sap.ui.core.UIComponent.getRouterFor(this);
+            
+            const selectedItemData = event.getSource().getBindingContext("userDetails").getObject();
+
+            this.getView().getModel("userDetails").setProperty("/selectedObject", selectedItemData);
+            
+            router.navTo("RouteForm", {
+                selectedObject: window.encodeURIComponent(JSON.stringify(selectedItemData))
+            });
         }
     });
 });

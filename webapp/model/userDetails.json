@@ -1,0 +1,30 @@
+{
+    "Table": [
+        {
+            "fullName1": "John Doe",
+            "phno1": "1234567890",
+            "email1": "abc@example.com",
+            "tableLength": 1,
+            "dob1": "2003-05-15",
+            "passOrFail": "Pass"
+        },
+        {
+            "fullName1": "Jane Smith",
+            "phno1": "9876543210",
+            "email1": "def@example.com",
+            "tableLength": 2,
+            "dob1": "2000-10-20",
+            "passOrFail": "Fail"
+        },
+        {
+            "fullName1": "Bob Johnson",
+            "phno1": "5555555555",
+            "email1": "ghi@example.com",
+            "tableLength": 3,
+            "dob1": "1995-08-30",
+            "passOrFail": "Pass"
+        }
+    ],
+    "editable": false,
+    "selectedObject": {}
+}
