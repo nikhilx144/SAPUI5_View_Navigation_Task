@@ -1,0 +1,139 @@
+<mvc:View controllerName="view.navigation.tasks.ui5.ui5viewnavigationtask.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <fb:FilterBar id="filterBar" search=".onSearch" header="{i18n>filterBarTitle}" class="sapUiSmallMarginBottom sapUIBorderRadius" visible="true">
+                    <fb:filterGroupItems>
+                        <fb:FilterGroupItem 
+                            id="nameFilterGroupItem"
+                            visibleInFilterBar="true"
+                            name="fullName1"
+                            label="Name"
+                            groupName="Group1">
+                            <fb:control>
+                                <SearchField id="nameSearchField" width="100%"/>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem 
+                            id="phnoFilterGroupItem"
+                            visibleInFilterBar="true"
+                            name="phno1"
+                            label="Phone Number"
+                            groupName="Group1">
+                            <fb:control>
+                                <SearchField id="phnoSearchField"/>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem 
+                            id="emailFilterGroupItem"
+                            visibleInFilterBar="true"
+                            name="email1"
+                            label="Email"
+                            groupName="Group1">
+                            <fb:control>
+                                <SearchField id="emailSearchField"/>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem 
+                            id="statusFilterGroupItem"
+                            visibleInFilterBar="true"
+                            name="passOrFail"
+                            label="Status"
+                            groupName="Group1">
+                            <fb:control>
+                                <Select id="statusSelect">
+                                    <items>
+                                        <core:Item id="allItem" key="" text="All"/>
+                                        <core:Item id="passItem" key="pass" text="Pass"/>
+                                        <core:Item id="failItem" key="fail" text="Fail"/>
+                                    </items>
+                                </Select>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem
+                            id="sortPanelPopUpGroupItem"
+                            visibleInFilterBar="true"
+                            name="sortPanelPopUp"
+                            label=""
+                            groupName="Group1">
+                            <fb:control>
+                                <HBox id="sortPanelPopUpHBox">
+                                    <Button id="sortPanelButton" text="P13n Panel Pop Up" press=".onOpenSortPanel" icon="sap-icon://sort"/>
+                                    <p13n:Popup id="p13nPopup" title="Sort Settings" warningText="Are you sure?" reset=".reset">
+                                        <p13n:panels>
+                                            <p13n:SelectionPanel id="columnsPanel" title="Columns" enableCount="true" showHeader="true" change=".parseP13nState"/>
+                                            <p13n:SortPanel id="sortPanel" title="Sort" change=".parseP13nState"/>
+                                            <p13n:GroupPanel id="groupPanel" title="Group" change=".parseP13nState"/>
+                                        </p13n:panels>
+                                    </p13n:Popup>
+                                </HBox>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                    </fb:filterGroupItems>
+                </fb:FilterBar>
+
+                <Table 
+                    id="innerTable" 
+                    width="auto" 
+                    headerText="{i18n>tableTitle}" 
+                    items="{
+                        path: 'formData>/Table',
+                        templateShareable: false
+                    }">
+                    <columns>
+                        <!-- <Column id="statusColumn" app:p13nKey="status_col"> -->
+                        <Column id="statusColumn">
+                            <Text id="statusColHeader" text="Status"/>
+                        </Column>
+                        <!-- <Column id="idColumn" app:p13nKey="id_col"> -->
+                        <Column id="idColumn">
+                            <Text id="idColHeader" text="ID"/>
+                        </Column>
+                        <!-- <Column id="nameColumn" app:p13nKey="name_col"> -->
+                        <Column id="nameColumn">
+                            <Text id="nameColHeader" text="Full Name"/>
+                        </Column>
+                        <!-- <Column id="phoneColumn" app:p13nKey="phone_col"> -->
+                        <Column id="phoneColumn">
+                            <Text id="phoneColHeader" text="Phone Number"/>
+                        </Column>
+                        <!-- <Column id="emailColumn" app:p13nKey="email_col"> -->
+                        <Column id="emailColumn">
+                            <Text id="emailColHeader" text="Email"/>
+                        </Column>
+                        <!-- <Column id="addressColumn" app:p13nKey="address_col"> -->
+                        <Column id="addressColumn">
+                            <Text id="addressColHeader" text="Address"/>
+                        </Column>
+                        <!-- <Column id="dobColumn" app:p13nKey="dob_col"> -->
+                        <Column id="dobColumn">
+                            <Text id="dobColHeader" text="Date of Birth"/>
+                        </Column>
+                        <!-- <Column id="submissionColumn" app:p13nKey="submission_col"> -->
+                        <Column id="submissionColumn">
+                            <Text id="submissionColHeader" text="Submission Date and Time"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem id="columnListItem" press=".onRowPress" type="Navigation">
+                            <cells>
+                                <core:Icon 
+                                    id="statusIconCell" 
+                                    src="{= ${formData>passOrFail} === 'Pass' ? 'sap-icon://status-positive' : 'sap-icon://status-negative' }"
+                                    color="{= ${formData>passOrFail} === 'Pass' ? 'green' : 'red' }"
+                                />
+                                <Text id="idCell" text="{formData>tableLength}"/>
+                                <Text id="fullNameCell" text="{formData>fullName1}"/>
+                                <Text id="phnoCell" text="{formData>phno1}"/>
+                                <Text id="emailCell" text="{formData>email1}"/>
+                                <Text id="addressCell" text="{formData>addressString1}"/>
+                                <Text id="dobCell" text="{formData>dob1}"/>
+                                <Text id="submissionDateAndTimeCell" text="{formData>submissionDateAndTime1}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+        </content>
+    </Page>
+</mvc:View>
