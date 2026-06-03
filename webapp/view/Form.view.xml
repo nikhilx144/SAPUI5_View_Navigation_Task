@@ -26,19 +26,16 @@
             <form:content>
                 <!-- Will toggle visibility of id input field on table row press. visible=false for add row -->
                 <Label id="idLabel" text="ID"/>
-                <Input id="idInput" value="{userDetails>/selectedObject/tableLength}" editable="false" visible="true"/>
+                <Input id="idInput" value="{userDetails>/selectedObjectData/tableLength}" editable="false" visible="true"/>
 
                 <Label id="nameLabel" text="Name"/>
-                <Input id="nameInput" value="{userDetails>/selectedObject/fullName1}" editable="{userDetails>/editable}" />
+                <Input id="nameInput" value="{userDetails>/selectedObjectData/fullName1}" editable="{userDetails>/editable}" />
                 
                 <Label id="phnoLabel" text="Phone Number"/>
-                <Input id="phnoInput" value="{userDetails>/selectedObject/phno1}" editable="{userDetails>/editable}"/>
+                <Input id="phnoInput" value="{userDetails>/selectedObjectData/phno1}" editable="{userDetails>/editable}"/>
                 
                 <Label id="emailLabel" text="Email"/>
-                <Input id="emailInput" value="{userDetails>/selectedObject/email1}" editable="{userDetails>/editable}"/>
-                
-                <!-- <Label id="roleLabel" text="Role"/>
-                <Input id="roleInput" value="{userDetails>/selectedObject/}"/> -->
+                <Input id="emailInput" value="{userDetails>/selectedObjectData/email1}" editable="{userDetails>/editable}"/>
 
                 <Label id="dobLabel" text="Date of Birth"/>
                 <DatePicker 
@@ -47,10 +44,10 @@
                     placeholder="Enter your DOB" 
                     valueFormat="yyyy-MM-dd"
                     editable="{userDetails>/editable}"
-                    value="{userDetails>/selectedObject/dob1}"/>
+                    value="{userDetails>/selectedObjectData/dob1}"/>
 
                 <Label id="passOrFailLabel" text="Pass/Fail"/>
-                <Input id="passOrFailInput" value="{userDetails>/selectedObject/passOrFail}" editable="{userDetails>/editable}"/>
+                <Input id="passOrFailInput" value="{userDetails>/selectedObjectData/passOrFail}" editable="{userDetails>/editable}"/>
 
             </form:content>
         </form:SimpleForm>

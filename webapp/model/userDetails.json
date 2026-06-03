@@ -26,5 +26,6 @@
         }
     ],
     "editable": false,
-    "selectedObject": {}
+    "selectedUserID": null,
+    "selectedObjectData": {}
 }

@@ -1,48 +1,44 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel"
-], (Controller, JSONModel) => {
+], (Controller) => {
     "use strict";
     
     return Controller.extend("view.navigation.tasks.ui5.ui5viewnavigationtask.controller.Form", {
         onInit() {
             this.oView = this.getView();
-            const modelData = {
-                selectedObjectData: {}
-            }
-
             this._router = sap.ui.core.UIComponent.getRouterFor(this);
-            
             this._router.getRoute("RouteForm").attachPatternMatched(this.onFormRouteMatched, this);
         },
 
         onFormRouteMatched(event) {
-            // const selectedObjectDataReceivedInString = window.decodeURIComponent(event.getParameter("arguments").selectedObject);
-            // const selecctedObjectDataRecivedInObject = JSON.parse(selectedObjectDataReceivedInString);
-            // this.oView.getModel('userDetails').setProperty("/selectedObject", selecctedObjectDataRecivedInObject);
+            const selectedUserID = event.getParameter("arguments").selectedUserID;
+            const userDetailsModel = this.oView.getModel("userDetails");
+            const allUsers = userDetailsModel.getProperty("/Table");
+            const matchedUser = allUsers.forEach(user => {
+                if (user.tableLength === selectedUserID) return user;
+            });
+            userDetailsModel.setProperty("/selectedObjectData", matchedUser);
         },
 
         onBack() {
             this._router.navTo("RouteHome");
             this.oView.getModel('userDetails').setProperty("/editable", false);
+            this.oView.byId('saveButton').setVisible(false);
         },
-
+        
         onEdit() {
             this.oView.getModel('userDetails').setProperty("/editable", true);
             this.getView().byId("saveButton").setVisible(true);
         },
-
+        
         onSave() {
             const router = sap.ui.core.UIComponent.getRouterFor(this);
-
             this.oView.getModel('userDetails').setProperty("/editable", false);
-            
-            const updatedObjectData = this.oView.getModel('userDetails').getProperty("/selectedObjectData");
-            console.log("Save = " + updatedObjectData);
-            // this._router.navTo("RouteHome", { 
-            router.navTo("RouteHome", { 
-                updatedObjectData: window.encodeURIComponent(JSON.stringify(updatedObjectData)) 
-            });
+            const updatedUserData = this.oView.getModel('userDetails').getProperty("/selectedObjectData");
+            const updatedUserID = updatedUserData.tableLength;
+            const allUsers = this.oView.getModel('userDetails').getProperty("/Table");
+            allUsers.forEach(user => { if (user.tableLength === updatedUserID) user = updatedUserData; });
+            this.oView.byId('saveButton').setVisible(false);
         }
-  });
+    });
 });

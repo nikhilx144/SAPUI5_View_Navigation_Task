@@ -13,27 +13,7 @@ sap.ui.define([
     return Controller.extend("view.navigation.tasks.ui5.ui5viewnavigationtask.controller.Home", {
         onInit() {
             this.oView = this.getView();
-            // resource model aleardy defined as a global model in manifest.json
-            // const resourceModel = new ResourceModel({
-            //     bundleName: "tasks.ui5.ui5task2.i18n.i18n"
-            // });
-
-            // this.oView.setModel(resourceModel, "i18n");
-
-            // For the sort panel pop up
             this._isOpen = false;
-
-            var modelData = {
-                // sortData: [],
-                Table: [],
-                // mandatoryName: "",
-                // mandatoryEmail: "",
-                // displayAddressString: "",
-                enabled: true,
-                // addresses: [{ addressText: "" }],
-                // roles: [ { role: "Associate Consultant" }, { role: "Manager" }, { role: "Consultant" } ],
-                selectedObject: {}
-            }
 
             // initial data for the sort, filter, group and column visibility features of the table
             this._initialData = {
@@ -63,6 +43,7 @@ sap.ui.define([
                 ]
             };
 
+            // attaching pattern matched event to the route to get the data passed from the form view when navigated back to home after editing and saving the details of the selected item
             this._router = sap.ui.core.UIComponent.getRouterFor(this);
             this._router.getRoute("RouteHome").attachPatternMatched(this.onHomeRouteMatched, this);
 
@@ -70,20 +51,7 @@ sap.ui.define([
         },
 
         onHomeRouteMatched(event) {
-            // const updatedObjectDataInString = window.decodeURIComponent(event.getParameter("arguments").updatedObjectData);
-            // const updatedObjectDataInObject = JSON.parse(updatedObjectDataInString);
-            // console.log('Updated Object Data = ' + updatedObjectDataInObject);
-            // let tableData = this.oView.getModel("userDetails").getProperty("/Table");
-            // tableData.forEach(row => {
-            //     if (row.tableLength === updatedObjectDataInObject.tableLength) {
-            //         row.fullName1 = updatedObjectDataInObject.fullName1;
-            //         row.phno1 = updatedObjectDataInObject.phno1;
-            //         row.email1 = updatedObjectDataInObject.email1;
-            //         row.dob1 = updatedObjectDataInObject.dob1;
-            //         row.passOrFail = updatedObjectDataInObject.passOrFail;
-            //     }
-            // });
-            // this.oView.getModel("userDetails").setProperty("/Table", tableData);
+            
         },
 
         // press event handler for the sort, filter, group and column visibility button which opens the pop up panel
@@ -138,8 +106,7 @@ sap.ui.define([
                 "phno1": "phoneColumn",
                 "email1": "emailColumn",
                 "passOrFail": "statusColumn",
-                "tableLength": "idColumn",
-                // "addressString1": "addressColumn"
+                "tableLength": "idColumn"
             }
 
             aColumnState.forEach((columnState) => {
@@ -170,14 +137,10 @@ sap.ui.define([
         },
 
         onRowPress(event) {
-            const router = sap.ui.core.UIComponent.getRouterFor(this);
-            
-            const selectedItemData = event.getSource().getBindingContext("userDetails").getObject();
-
-            this.getView().getModel("userDetails").setProperty("/selectedObject", selectedItemData);
-            
+            const router = sap.ui.core.UIComponent.getRouterFor(this);            
+            const selectedUserDataID = event.getSource().getBindingContext("userDetails").getObject().tableLength;
             router.navTo("RouteForm", {
-                selectedObject: window.encodeURIComponent(JSON.stringify(selectedItemData))
+                selectedUserID: selectedUserDataID
             });
         }
     });

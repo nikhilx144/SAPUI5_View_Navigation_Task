@@ -92,38 +92,29 @@
                     templateShareable: false
                 }">
                 <columns>
-                    <!-- <Column id="statusColumn" app:p13nKey="status_col"> -->
-                    <Column id="statusColumn">
+                    <Column id="statusColumn" app:p13nKey="status_col">
                         <Text id="statusColHeader" text="Status"/>
                     </Column>
-                    <!-- <Column id="idColumn" app:p13nKey="id_col"> -->
-                    <Column id="idColumn">
+                    
+                    <Column id="idColumn" app:p13nKey="id_col">
                         <Text id="idColHeader" text="ID"/>
                     </Column>
-                    <!-- <Column id="nameColumn" app:p13nKey="name_col"> -->
-                    <Column id="nameColumn">
+                    
+                    <Column id="nameColumn" app:p13nKey="name_col">
                         <Text id="nameColHeader" text="Full Name"/>
                     </Column>
-                    <!-- <Column id="phoneColumn" app:p13nKey="phone_col"> -->
-                    <Column id="phoneColumn">
+                    
+                    <Column id="phoneColumn" app:p13nKey="phone_col">
                         <Text id="phoneColHeader" text="Phone Number"/>
                     </Column>
-                    <!-- <Column id="emailColumn" app:p13nKey="email_col"> -->
-                    <Column id="emailColumn">
+                    
+                    <Column id="emailColumn" app:p13nKey="email_col">
                         <Text id="emailColHeader" text="Email"/>
                     </Column>
-                    <!-- <Column id="addressColumn" app:p13nKey="address_col"> -->
-                    <!-- <Column id="addressColumn">
-                        <Text id="addressColHeader" text="Address"/>
-                    </Column> -->
-                    <!-- <Column id="dobColumn" app:p13nKey="dob_col"> -->
-                    <Column id="dobColumn">
+
+                    <Column id="dobColumn" app:p13nKey="dob_col">
                         <Text id="dobColHeader" text="Date of Birth"/>
                     </Column>
-                    <!-- <Column id="submissionColumn" app:p13nKey="submission_col"> -->
-                    <!-- <Column id="submissionColumn">
-                        <Text id="submissionColHeader" text="Submission Date and Time"/>
-                    </Column> -->
                 </columns>
                 <items>
                     <ColumnListItem id="columnListItem" press=".onRowPress" type="Navigation">
@@ -137,9 +128,7 @@
                             <Text id="fullNameCell" text="{userDetails>fullName1}"/>
                             <Text id="phnoCell" text="{userDetails>phno1}"/>
                             <Text id="emailCell" text="{userDetails>email1}"/>
-                            <!-- <Text id="addressCell" text="{userDetails>addressString1}"/> -->
                             <Text id="dobCell" text="{userDetails>dob1}"/>
-                            <!-- <Text id="submissionDateAndTimeCell" text="{userDetails>submissionDateAndTime1}"/> -->
                         </cells>
                     </ColumnListItem>
                 </items>

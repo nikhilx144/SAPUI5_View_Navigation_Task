@@ -77,14 +77,14 @@
       },
       "routes": [
         {
-          "pattern": ":updatedObjectData:",
+          "pattern": "",
           "name": "RouteHome",
           "target": [
             "TargetHome"
           ]
         },
         {
-          "pattern": "form/{selectedObject}",
+          "pattern": "form/{selectedUserID}",
           "name": "RouteForm",
           "target": [
             "TargetForm"
