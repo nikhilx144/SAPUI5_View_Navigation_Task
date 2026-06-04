@@ -18,6 +18,7 @@
                 </contentMiddle>
                 <contentRight>
                     <Button id="editButton" text="Edit" press=".onEdit"/>
+                    <Button id="cancelButton" text="Cancel" press=".onCancel" visible="false"/>
                     <Button id="saveButton" text="Save" press=".onSave" visible="false"/>
                 </contentRight>
             </Bar>

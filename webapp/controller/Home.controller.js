@@ -136,6 +136,24 @@ sap.ui.define([
             binding.sort(tableSorters);
         },
 
+        // function for Go button of filter bar to apply the filters on the table
+        onSearch() {
+            const table = this.getView().byId("innerTable");
+            let tableFilters = this.getView().byId('filterBar').getFilterGroupItems();
+            const filters = [];
+            tableFilters.forEach((filter) => {
+                if (filter.getName() !== "passOrFail" && filter.getName() !== "sortPanelPopUp") {
+                    let query = filter.getControl().getValue();
+                    const colFilter = new Filter(filter.getName(), FilterOperator.Contains, query);
+                    filters.push(colFilter);
+                }
+            })
+            let selectedOption = this.getView().byId("statusSelect").getSelectedKey();
+            filters.push(new Filter("passOrFail", FilterOperator.Contains, selectedOption));
+            const binding = table.getBinding("items");
+            binding.filter(filters);
+        },
+
         onRowPress(event) {
             const router = sap.ui.core.UIComponent.getRouterFor(this);            
             const selectedUserDataID = event.getSource().getBindingContext("userDetails").getObject().tableLength;

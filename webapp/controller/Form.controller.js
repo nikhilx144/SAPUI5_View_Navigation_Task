@@ -15,15 +15,11 @@ sap.ui.define([
             const userDetailsModel = this.oView.getModel("userDetails");
             const allUsers = userDetailsModel.getProperty("/Table");
             let matchedUser;
-            console.log("selected user ID = ", selectedUserID);
             allUsers.forEach(user => {
-                console.log(user);
-                console.log(user.tableLength);
                 if (user.tableLength === Number(selectedUserID)) {
                     matchedUser = user;
                 }
             }); 
-            console.log('Matched User = ', matchedUser);
             userDetailsModel.setProperty("/selectedObjectData", matchedUser);
         },
 
@@ -36,8 +32,17 @@ sap.ui.define([
         onEdit() {
             this.oView.getModel('userDetails').setProperty("/editable", true);
             this.getView().byId("saveButton").setVisible(true);
+            this.getView().byId("cancelButton").setVisible(true);
         },
         
+        onCancel() {
+            const router = sap.ui.core.UIComponent.getRouterFor(this);
+            this.oView.byId('cancelButton').setVisible(false);
+            this.oView.byId('saveButton').setVisible(false);
+            this.oView.getModel('userDetails').setProperty("/editable", false);
+            router.navTo("RouteHome");
+        },
+
         onSave() {
             const router = sap.ui.core.UIComponent.getRouterFor(this);
             this.oView.getModel('userDetails').setProperty("/editable", false);
