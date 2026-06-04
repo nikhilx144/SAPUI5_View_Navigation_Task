@@ -26,17 +26,20 @@
         <form:SimpleForm id="form">
             <form:content>
                 <!-- Will toggle visibility of id input field on table row press. visible=false for add row -->
-                <Label id="idLabel" text="ID"/>
-                <Input id="idInput" value="{userDetails>/selectedObjectData/tableLength}" editable="false" visible="true"/>
+                <Label id="id1Label" text="ID 1"/>
+                <Input id="id1Input" value="{userDetails>/selectedObjectData/id1}" editable="false" visible="true"/>
+                
+                <Label id="id2Label" text="ID 2"/>
+                <Input id="id2Input" value="{userDetails>/selectedObjectData/id2}" editable="false" visible="true"/>
 
                 <Label id="nameLabel" text="Name"/>
-                <Input id="nameInput" value="{userDetails>/selectedObjectData/fullName1}" editable="{userDetails>/editable}" />
+                <Input id="nameInput" value="{userDetails>/selectedObjectData/fullName}" editable="{userDetails>/editable}" />
                 
                 <Label id="phnoLabel" text="Phone Number"/>
-                <Input id="phnoInput" value="{userDetails>/selectedObjectData/phno1}" editable="{userDetails>/editable}"/>
+                <Input id="phnoInput" value="{userDetails>/selectedObjectData/phno}" editable="{userDetails>/editable}"/>
                 
                 <Label id="emailLabel" text="Email"/>
-                <Input id="emailInput" value="{userDetails>/selectedObjectData/email1}" editable="{userDetails>/editable}"/>
+                <Input id="emailInput" value="{userDetails>/selectedObjectData/email}" editable="{userDetails>/editable}"/>
 
                 <Label id="dobLabel" text="Date of Birth"/>
                 <DatePicker 
@@ -45,7 +48,7 @@
                     placeholder="Enter your DOB" 
                     valueFormat="yyyy-MM-dd"
                     editable="{userDetails>/editable}"
-                    value="{userDetails>/selectedObjectData/dob1}"/>
+                    value="{userDetails>/selectedObjectData/dob}"/>
 
                 <Label id="passOrFailLabel" text="Pass/Fail"/>
                 <ComboBox id="passOrFailInput" editable="{userDetails>/editable}" selectedKey="{userDetails>/selectedObjectData/passOrFail}">

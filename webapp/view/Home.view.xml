@@ -18,7 +18,7 @@
                     <fb:FilterGroupItem 
                         id="nameFilterGroupItem"
                         visibleInFilterBar="true"
-                        name="fullName1"
+                        name="fullName"
                         label="Name"
                         groupName="Group1">
                         <fb:control>
@@ -28,7 +28,7 @@
                     <fb:FilterGroupItem 
                         id="phnoFilterGroupItem"
                         visibleInFilterBar="true"
-                        name="phno1"
+                        name="phno"
                         label="Phone Number"
                         groupName="Group1">
                         <fb:control>
@@ -38,7 +38,7 @@
                     <fb:FilterGroupItem 
                         id="emailFilterGroupItem"
                         visibleInFilterBar="true"
-                        name="email1"
+                        name="email"
                         label="Email"
                         groupName="Group1">
                         <fb:control>
@@ -96,8 +96,12 @@
                         <Text id="statusColHeader" text="Status"/>
                     </Column> -->
                     
-                    <Column id="idColumn" app:p13nKey="id_col">
-                        <Text id="idColHeader" text="ID"/>
+                    <Column id="id1Column" app:p13nKey="id1_col">
+                        <Text id="id1ColHeader" text="ID 1"/>
+                    </Column>
+
+                    <Column id="id2Column" app:p13nKey="id2_col">
+                        <Text id="id2ColHeader" text="ID 2"/>
                     </Column>
                     
                     <Column id="nameColumn" app:p13nKey="name_col">
@@ -124,11 +128,12 @@
                                 src="{= ${userDetails>passOrFail} === 'Pass' ? 'sap-icon://status-positive' : 'sap-icon://status-negative' }"
                                 color="{= ${userDetails>passOrFail} === 'Pass' ? 'green' : 'red' }"
                             /> -->
-                            <Text id="idCell" text="{userDetails>tableLength}"/>
-                            <Text id="fullNameCell" text="{userDetails>fullName1}"/>
-                            <!-- <Text id="phnoCell" text="{userDetails>phno1}"/> -->
-                            <Text id="emailCell" text="{userDetails>email1}"/>
-                            <!-- <Text id="dobCell" text="{userDetails>dob1}"/> -->
+                            <Text id="id1Cell" text="{userDetails>id1}"/>
+                            <Text id="id2Cell" text="{userDetails>id2}"/>
+                            <Text id="fullNameCell" text="{userDetails>fullName}"/>
+                            <!-- <Text id="phnoCell" text="{userDetails>phno}"/> -->
+                            <Text id="emailCell" text="{userDetails>email}"/>
+                            <!-- <Text id="dobCell" text="{userDetails>dob}"/> -->
                         </cells>
                     </ColumnListItem>
                 </items>

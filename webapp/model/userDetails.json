@@ -1,27 +1,57 @@
 {
     "Table": [
         {
-            "fullName1": "John Doe",
-            "phno1": "1234567890",
-            "email1": "abc@example.com",
-            "tableLength": 1,
-            "dob1": "2003-05-15",
+            "fullName": "John Doe",
+            "phno": "1234567890",
+            "email": "abc@example.com",
+            "id1": 1,
+            "id2": 101,
+            "dob": "2003-05-15",
             "passOrFail": "Pass"
         },
         {
-            "fullName1": "Jane Smith",
-            "phno1": "9876543210",
-            "email1": "def@example.com",
-            "tableLength": 2,
-            "dob1": "2000-10-20",
+            "fullName": "Jane Smith",
+            "phno": "9876543210",
+            "email": "def@example.com",
+            "id1": 1,
+            "id2": 102,
+            "dob": "2000-10-20",
             "passOrFail": "Fail"
         },
         {
-            "fullName1": "Bob Johnson",
-            "phno1": "5555555555",
-            "email1": "ghi@example.com",
-            "tableLength": 3,
-            "dob1": "1995-08-30",
+            "fullName": "Bob Johnson",
+            "phno": "5555555555",
+            "email": "ghi@example.com",
+            "id1": 1,
+            "id2": 103,
+            "dob": "1995-08-30",
+            "passOrFail": "Pass"
+        },
+        {
+            "fullName": "Alice Williams",
+            "phno": "1111111111",
+            "email": "abc@example.com",
+            "id1": 2,
+            "id2": 101,
+            "dob": "1998-12-10",
+            "passOrFail": "Pass"
+        },
+        {
+            "fullName": "Charlie Brown",
+            "phno": "2222222222",
+            "email": "abcd@example.com",
+            "id1": 2,
+            "id2": 102,
+            "dob": "1990-07-25",
+            "passOrFail": "Fail"
+        },
+        {
+            "fullName": "Eve Davis",
+            "phno": "3333333333",
+            "email": "hello@gmail.com",
+            "id1": 2,
+            "id2": 103,
+            "dob": "2002-03-05",
             "passOrFail": "Pass"
         }
     ],

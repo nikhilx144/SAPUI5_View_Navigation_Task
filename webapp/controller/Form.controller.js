@@ -12,13 +12,14 @@ sap.ui.define([
 
         onFormRouteMatched(event) {
             console.log(event.getParameter('arguments'));
-            const selectedUserID = event.getParameter("arguments").selectedUserID;
+            const selectedUserID1 = event.getParameter("arguments").selectedUserID1;
+            const selectedUserID2 = event.getParameter("arguments").selectedUserID2;
             const queryParamUserName = window.decodeURI(event.getParameter("arguments")['?query'].Name);
             const userDetailsModel = this.oView.getModel("userDetails");
             const allUsers = userDetailsModel.getProperty("/Table");
             let matchedUser;
             allUsers.forEach(user => {
-                if (user.tableLength === Number(selectedUserID)) matchedUser = user;
+                if (user.id1 === Number(selectedUserID1) && user.id2 === Number(selectedUserID2)) matchedUser = user;
             }); 
             userDetailsModel.setProperty("/selectedObjectData", matchedUser);
             this.oView.byId("nameInput").setValue(queryParamUserName);

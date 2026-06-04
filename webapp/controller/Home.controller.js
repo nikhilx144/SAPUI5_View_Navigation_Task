@@ -19,26 +19,28 @@ sap.ui.define([
             this._initialData = {
                 columns: [
                     { visible: true, name: "passOrFail", label: "Status" },
-                    { visible: true, name: "tableLength", label: "ID" },
-                    { visible: true, name: "fullName1", label: "Name" },
-                    { visible: true, name: "phno1", label: "Phone" },
-                    { visible: true, name: "email1", label: "Email" },
-                    // { visible: true, name: "addressString1", label: "Address" }
+                    { visible: true, name: "id1", label: "ID 1" },
+                    { visible: true, name: "id2", label: "ID 2" },
+                    { visible: true, name: "fullName", label: "Name" },
+                    { visible: true, name: "phno", label: "Phone" },
+                    { visible: true, name: "email", label: "Email" },
+                    // { visible: true, name: "addressString", label: "Address" }
                 ],
                 sort: [
-                    { sorted: true, name: "tableLength", label: "ID", descending: true },
-                    { sorted: false, name: "fullName1", label: "Name", descending: false },
-                    { sorted: false, name: "phno1", label: "Phone", descending: false },
-                    { sorted: false, name: "email1", label: "Email", descending: false },
-                    // { sorted: false, name: "addressString1", label: "Address", descending: false }
+                    { sorted: true, name: "id1", label: "ID 1", descending: true },
+                    { sorted: true, name: "id2", label: "ID 2", descending: true },
+                    { sorted: false, name: "fullName", label: "Name", descending: false },
+                    { sorted: false, name: "phno", label: "Phone", descending: false },
+                    { sorted: false, name: "email", label: "Email", descending: false },
+                    // { sorted: false, name: "addressString", label: "Address", descending: false }
                 ],
                 group: [
                     { grouped: false, name: "passOrFail", label: "Status" },
                 ],
                 filter: [
-                    { name: "fullName1", label: "Name" },
-                    { name: "phno1", label: "Phone" },
-                    { name: "email1", label: "Email" },
+                    { name: "fullName", label: "Name" },
+                    { name: "phno", label: "Phone" },
+                    { name: "email", label: "Email" },
                     { name: "passOrFail", label: "Status" }
                 ]
             };
@@ -102,11 +104,12 @@ sap.ui.define([
             const aGroupState = view.byId("groupPanel").getP13nData();
 
             const columnMap = {
-                "fullName1": "nameColumn",
-                "phno1": "phoneColumn",
-                "email1": "emailColumn",
+                "fullName": "nameColumn",
+                "phno": "phoneColumn",
+                "email": "emailColumn",
                 "passOrFail": "statusColumn",
-                "tableLength": "idColumn"
+                "id1": "id1Column",
+                "id2": "id2Column"
             }
 
             aColumnState.forEach((columnState) => {
@@ -156,11 +159,13 @@ sap.ui.define([
 
         onRowPress(event) {
             const router = sap.ui.core.UIComponent.getRouterFor(this);            
-            const selectedUserDataID = event.getSource().getBindingContext("userDetails").getObject().tableLength;
+            const selectedUserDataID1 = event.getSource().getBindingContext("userDetails").getObject().id1;
+            const selectedUserDataID2 = event.getSource().getBindingContext("userDetails").getObject().id2;
             router.navTo("RouteForm", {
-                selectedUserID: selectedUserDataID,
+                selectedUserID1: selectedUserDataID1,
+                selectedUserID2: selectedUserDataID2,
                 "?query": {
-                    Name: window.encodeURI(event.getSource().getBindingContext("userDetails").getObject().fullName1)
+                    Name: window.encodeURI(event.getSource().getBindingContext("userDetails").getObject().fullName)
                 }
             });
         }
