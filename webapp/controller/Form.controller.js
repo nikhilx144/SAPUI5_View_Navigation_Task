@@ -11,8 +11,9 @@ sap.ui.define([
         },
 
         onFormRouteMatched(event) {
+            console.log(event.getParameter('arguments'));
             const selectedUserID = event.getParameter("arguments").selectedUserID;
-            const queryParamUserName = window.decodeURI(event.getParameter("arguments").query.Name);
+            const queryParamUserName = window.decodeURI(event.getParameter("arguments")['?query'].Name);
             const userDetailsModel = this.oView.getModel("userDetails");
             const allUsers = userDetailsModel.getProperty("/Table");
             let matchedUser;
