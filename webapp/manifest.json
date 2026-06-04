@@ -73,7 +73,10 @@
         "type": "View",
         "viewType": "XML",
         "path": "view.navigation.tasks.ui5.ui5viewnavigationtask.view",
-        "async": true
+        "async": true,
+        "bypassed": {
+          "target": "TargetNotFound"
+        }
       },
       "routes": [
         {
@@ -84,7 +87,7 @@
           ]
         },
         {
-          "pattern": "form/{selectedUserID}",
+          "pattern": "form/{selectedUserID}:?query:",
           "name": "RouteForm",
           "target": [
             "TargetForm"
@@ -101,6 +104,11 @@
           "id": "Form",
           "name": "Form",
           "level": 2
+        },
+        "TargetNotFound": {
+          "id": "notFound",
+          "name": "NotFound",
+          "transition": "show"
         }
       }
     },

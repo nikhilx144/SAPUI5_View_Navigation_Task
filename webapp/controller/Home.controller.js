@@ -158,7 +158,10 @@ sap.ui.define([
             const router = sap.ui.core.UIComponent.getRouterFor(this);            
             const selectedUserDataID = event.getSource().getBindingContext("userDetails").getObject().tableLength;
             router.navTo("RouteForm", {
-                selectedUserID: selectedUserDataID
+                selectedUserID: selectedUserDataID,
+                "?query": {
+                    Name: window.encodeURI(event.getSource().getBindingContext("userDetails").getObject().fullName1)
+                }
             });
         }
     });

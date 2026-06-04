@@ -92,9 +92,9 @@
                     templateShareable: false
                 }">
                 <columns>
-                    <Column id="statusColumn" app:p13nKey="status_col">
+                    <!-- <Column id="statusColumn" app:p13nKey="status_col">
                         <Text id="statusColHeader" text="Status"/>
-                    </Column>
+                    </Column> -->
                     
                     <Column id="idColumn" app:p13nKey="id_col">
                         <Text id="idColHeader" text="ID"/>
@@ -104,31 +104,31 @@
                         <Text id="nameColHeader" text="Full Name"/>
                     </Column>
                     
-                    <Column id="phoneColumn" app:p13nKey="phone_col">
+                    <!-- <Column id="phoneColumn" app:p13nKey="phone_col">
                         <Text id="phoneColHeader" text="Phone Number"/>
-                    </Column>
+                    </Column> -->
                     
                     <Column id="emailColumn" app:p13nKey="email_col">
                         <Text id="emailColHeader" text="Email"/>
                     </Column>
 
-                    <Column id="dobColumn" app:p13nKey="dob_col">
+                    <!-- <Column id="dobColumn" app:p13nKey="dob_col">
                         <Text id="dobColHeader" text="Date of Birth"/>
-                    </Column>
+                    </Column> -->
                 </columns>
                 <items>
                     <ColumnListItem id="columnListItem" press=".onRowPress" type="Navigation">
                         <cells>
-                            <core:Icon 
+                            <!-- <core:Icon 
                                 id="statusIconCell" 
                                 src="{= ${userDetails>passOrFail} === 'Pass' ? 'sap-icon://status-positive' : 'sap-icon://status-negative' }"
                                 color="{= ${userDetails>passOrFail} === 'Pass' ? 'green' : 'red' }"
-                            />
+                            /> -->
                             <Text id="idCell" text="{userDetails>tableLength}"/>
                             <Text id="fullNameCell" text="{userDetails>fullName1}"/>
-                            <Text id="phnoCell" text="{userDetails>phno1}"/>
+                            <!-- <Text id="phnoCell" text="{userDetails>phno1}"/> -->
                             <Text id="emailCell" text="{userDetails>email1}"/>
-                            <Text id="dobCell" text="{userDetails>dob1}"/>
+                            <!-- <Text id="dobCell" text="{userDetails>dob1}"/> -->
                         </cells>
                     </ColumnListItem>
                 </items>

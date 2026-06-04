@@ -1,0 +1,13 @@
+<mvc:View
+    controllerName="ui5_view_navigation_task.controller.NotFound"
+    id="notFoundView"
+    xmlns="sap.m">
+    <Page id="notFoundPage" title="{i18n>pageNotFoundTitle}">
+        <content>
+            <VBox id="notFoundBox" class="sapUiSmallMargin">
+                <Title id="notFoundTitle" level="H2" class="sapUiMediumMarginBottom" text="{i18n>pageNotFoundMessage}"/>
+                <Button  id="goBackButton" text="{i18n>goToHomeButtonText}" press="onNavBack"/>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

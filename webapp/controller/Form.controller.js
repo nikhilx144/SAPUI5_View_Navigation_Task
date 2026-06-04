@@ -12,15 +12,15 @@ sap.ui.define([
 
         onFormRouteMatched(event) {
             const selectedUserID = event.getParameter("arguments").selectedUserID;
+            const queryParamUserName = window.decodeURI(event.getParameter("arguments").query.Name);
             const userDetailsModel = this.oView.getModel("userDetails");
             const allUsers = userDetailsModel.getProperty("/Table");
             let matchedUser;
             allUsers.forEach(user => {
-                if (user.tableLength === Number(selectedUserID)) {
-                    matchedUser = user;
-                }
+                if (user.tableLength === Number(selectedUserID)) matchedUser = user;
             }); 
             userDetailsModel.setProperty("/selectedObjectData", matchedUser);
+            this.oView.byId("nameInput").setValue(queryParamUserName);
         },
 
         onBack() {
@@ -37,9 +37,10 @@ sap.ui.define([
         
         onCancel() {
             const router = sap.ui.core.UIComponent.getRouterFor(this);
+            const model = this.oView.getModel("userDetails");
             this.oView.byId('cancelButton').setVisible(false);
             this.oView.byId('saveButton').setVisible(false);
-            this.oView.getModel('userDetails').setProperty("/editable", false);
+            model.setProperty("/editable", false);
             router.navTo("RouteHome");
         },
 
