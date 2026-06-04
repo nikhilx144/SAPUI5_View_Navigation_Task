@@ -25,6 +25,16 @@
             "passOrFail": "Pass"
         }
     ],
+    "passOrFailItems": [
+        {
+            "key": "Pass",
+            "text": "Pass"
+        },
+        {
+            "key": "Fail",
+            "text": "Fail"
+        }
+    ],
     "editable": false,
     "selectedUserID": null,
     "selectedObjectData": {}

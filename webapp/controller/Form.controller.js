@@ -14,9 +14,16 @@ sap.ui.define([
             const selectedUserID = event.getParameter("arguments").selectedUserID;
             const userDetailsModel = this.oView.getModel("userDetails");
             const allUsers = userDetailsModel.getProperty("/Table");
-            const matchedUser = allUsers.forEach(user => {
-                if (user.tableLength === selectedUserID) return user;
-            });
+            let matchedUser;
+            console.log("selected user ID = ", selectedUserID);
+            allUsers.forEach(user => {
+                console.log(user);
+                console.log(user.tableLength);
+                if (user.tableLength === Number(selectedUserID)) {
+                    matchedUser = user;
+                }
+            }); 
+            console.log('Matched User = ', matchedUser);
             userDetailsModel.setProperty("/selectedObjectData", matchedUser);
         },
 
@@ -37,8 +44,13 @@ sap.ui.define([
             const updatedUserData = this.oView.getModel('userDetails').getProperty("/selectedObjectData");
             const updatedUserID = updatedUserData.tableLength;
             const allUsers = this.oView.getModel('userDetails').getProperty("/Table");
-            allUsers.forEach(user => { if (user.tableLength === updatedUserID) user = updatedUserData; });
+            allUsers.forEach(user => { 
+                if (user.tableLength === updatedUserID) {
+                    Object.assign(user, updatedUserData);
+                } 
+            });
             this.oView.byId('saveButton').setVisible(false);
+            router.navTo("RouteHome");
         }
     });
 });

@@ -47,8 +47,12 @@
                     value="{userDetails>/selectedObjectData/dob1}"/>
 
                 <Label id="passOrFailLabel" text="Pass/Fail"/>
-                <Input id="passOrFailInput" value="{userDetails>/selectedObjectData/passOrFail}" editable="{userDetails>/editable}"/>
-
+                <ComboBox id="passOrFailInput" editable="{userDetails>/editable}" selectedKey="{userDetails>/selectedObjectData/passOrFail}">
+                    <items>
+                        <core:Item id="passOption" key="Pass" text="Pass"/>
+                        <core:Item id="failOption" key="Fail" text="Fail"/>
+                    </items>
+                </ComboBox>
             </form:content>
         </form:SimpleForm>
         <!-- Toggle visible to false if the user clicks on a table row -->
