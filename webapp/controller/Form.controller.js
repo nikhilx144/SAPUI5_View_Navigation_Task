@@ -12,17 +12,40 @@ sap.ui.define([
 
         onFormRouteMatched(event) {
             console.log(event.getParameter('arguments'));
+            const userDetailsModel = this.oView.getModel("userDetails");
             const selectedUserID1 = event.getParameter("arguments").selectedUserID1;
             const selectedUserID2 = event.getParameter("arguments").selectedUserID2;
-            const queryParamUserName = window.decodeURI(event.getParameter("arguments")['?query'].Name);
-            const userDetailsModel = this.oView.getModel("userDetails");
+            const addRowQueryParam = window.decodeURI(event.getParameter("arguments")["?query"]?.add);
+            if (addRowQueryParam === "true") {
+                const userDetailsModel = this.oView.getModel("userDetails");
+                userDetailsModel.setProperty("/selectedObjectData", {
+                    fullName: "",
+                    phno: "",
+                    email: "",
+                    id1: Number(selectedUserID1),
+                    id2: Number(selectedUserID2),
+                    dob: null,
+                    passOrFail: ""
+                });
+                userDetailsModel.setProperty("/editable", true);
+                this.oView.byId("submitButton").setVisible(true);
+                this.oView.byId("editButton").setVisible(false);
+                return;
+            }
             const allUsers = userDetailsModel.getProperty("/Table");
+            console.log(allUsers);
             let matchedUser;
             allUsers.forEach(user => {
                 if (user.id1 === Number(selectedUserID1) && user.id2 === Number(selectedUserID2)) matchedUser = user;
             }); 
+
+            // console.log(this.oView.getModel('userDetails').getData());
+            console.log(matchedUser);
             userDetailsModel.setProperty("/selectedObjectData", matchedUser);
-            this.oView.byId("nameInput").setValue(queryParamUserName);
+            console.log(userDetailsModel.getProperty("/selectedObjectData"));
+            userDetailsModel.setProperty("/editable", false);
+            this.oView.byId("submitButton").setVisible(false);
+            this.oView.byId("editButton").setVisible(true);
         },
 
         onBack() {
@@ -58,6 +81,25 @@ sap.ui.define([
                 } 
             });
             this.oView.byId('saveButton').setVisible(false);
+            router.navTo("RouteHome");
+        },
+
+        onSubmit() {
+            const router = sap.ui.core.UIComponent.getRouterFor(this);
+            const newUserData = this.oView.getModel('userDetails').getProperty("/selectedObjectData");
+            const allUsers = this.oView.getModel('userDetails').getProperty("/Table");
+            allUsers.forEach(user => {
+                if (user.id1 === newUserData.id1 && user.id2 === newUserData.id2) {
+                    alert("User with same ID already exists. Please change the ID and try again.");
+                    return;
+                } 
+            });
+            allUsers.push(newUserData);
+            this.oView.getModel('userDetails').setProperty("/Table", allUsers);
+            this.oView.byId('submitButton').setVisible(false);
+
+            console.log(this.oView.getModel('userDetails').getData());
+
             router.navTo("RouteHome");
         }
     });

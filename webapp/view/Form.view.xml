@@ -60,6 +60,6 @@
             </form:content>
         </form:SimpleForm>
         <!-- Toggle visible to false if the user clicks on a table row -->
-        <Button id="submitButton" text="Submit" press="onSubmitPress" visible="false"/>
+        <Button id="submitButton" text="Submit" press="onSubmit" visible="false"/>
     </Page>
 </mvc:View>

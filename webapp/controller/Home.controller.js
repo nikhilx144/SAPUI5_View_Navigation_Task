@@ -24,6 +24,7 @@ sap.ui.define([
                     { visible: true, name: "fullName", label: "Name" },
                     { visible: true, name: "phno", label: "Phone" },
                     { visible: true, name: "email", label: "Email" },
+                    { visible: true, name: "dob", label: "DOB" }
                     // { visible: true, name: "addressString", label: "Address" }
                 ],
                 sort: [
@@ -32,6 +33,7 @@ sap.ui.define([
                     { sorted: false, name: "fullName", label: "Name", descending: false },
                     { sorted: false, name: "phno", label: "Phone", descending: false },
                     { sorted: false, name: "email", label: "Email", descending: false },
+                    { sorted: false, name: "dob", label: "DOB", descending: false }
                     // { sorted: false, name: "addressString", label: "Address", descending: false }
                 ],
                 group: [
@@ -41,7 +43,8 @@ sap.ui.define([
                     { name: "fullName", label: "Name" },
                     { name: "phno", label: "Phone" },
                     { name: "email", label: "Email" },
-                    { name: "passOrFail", label: "Status" }
+                    { name: "passOrFail", label: "Status" },
+                    { name: "dob", label: "DOB" }
                 ]
             };
 
@@ -163,9 +166,28 @@ sap.ui.define([
             const selectedUserDataID2 = event.getSource().getBindingContext("userDetails").getObject().id2;
             router.navTo("RouteForm", {
                 selectedUserID1: selectedUserDataID1,
-                selectedUserID2: selectedUserDataID2,
+                selectedUserID2: selectedUserDataID2
+            });
+        },
+
+        onAddRow() {
+            const userDetailsModel = this.oView.getModel("userDetails");
+            const allUsers = userDetailsModel.getProperty("/Table");
+            const router = sap.ui.core.UIComponent.getRouterFor(this);
+            const lastUserID1 = allUsers[allUsers.length - 1].id1;
+            const lastUserID2 = allUsers[allUsers.length - 1].id2;
+            let newUserID1, newUserID2;
+            if (lastUserID2 === 103) {
+                newUserID2 = 101;
+                newUserID1 = lastUserID1 + 1;
+            } else {
+                newUserID2 = lastUserID2 + 1;
+            }
+            router.navTo("RouteForm", {
+                selectedUserID1: newUserID1,
+                selectedUserID2: newUserID2,
                 "?query": {
-                    Name: window.encodeURI(event.getSource().getBindingContext("userDetails").getObject().fullName)
+                    add: true
                 }
             });
         }

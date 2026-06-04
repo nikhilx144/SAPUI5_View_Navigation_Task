@@ -85,12 +85,18 @@
 
             <Table 
                 id="innerTable" 
-                width="auto" 
-                headerText="{i18n>tableTitle}" 
+                width="auto"
                 items="{
                     path: 'userDetails>/Table',
                     templateShareable: false
                 }">
+                <headerToolbar>
+                    <Toolbar id="tableHeaderToolbar">
+                        <Title id="tableTitle" text="{i18n>tableTitle}"/>
+                        <ToolbarSpacer id="toolBarSpacer" />
+                        <Button id="addRowButton" icon="sap-icon://add" text="Add Row" press=".onAddRow"/>
+                    </Toolbar>
+                </headerToolbar>
                 <columns>
                     <!-- <Column id="statusColumn" app:p13nKey="status_col">
                         <Text id="statusColHeader" text="Status"/>

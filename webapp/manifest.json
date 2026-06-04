@@ -87,7 +87,7 @@
           ]
         },
         {
-          "pattern": "form/{selectedUserID1}/{selectedUserID2}:?query:",
+          "pattern": "form/{selectedUserID1}/{selectedUserID2}/:?query:",
           "name": "RouteForm",
           "target": [
             "TargetForm"
